@@ -13,7 +13,6 @@ class FormController extends Controller
         return view('identification');
     }
 
-    // Method to handle form submission
     public function submitForm(Request $request)
     {
         $validatedData = $request->validate([
@@ -22,18 +21,16 @@ class FormController extends Controller
             'organization' => 'required|string|max:255',
             'te_id' => 'required|string|max:255',
             'purpose' => 'required|string|max:255',
-            'role' => 'required|in:Visitor,Contractor',
         ]);
 
-        // Save form data to the database
+        // Create a new Visitor entry
         Visitor::create($validatedData);
-
-        // Store the selected role in the session
-        session(['role' => $request->input('role')]);
 
         // Redirect to the role selection page
         return redirect()->route('category.show');
     }
+
+
 
     // Method to display the category (role selection) page
     public function showCategory()

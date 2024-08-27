@@ -41,11 +41,23 @@ Route::post('/submit-form', [FormController::class, 'submitForm'])->name('form.s
 route::get('/category', [FormController::class, 'showCategory'])->name('category.show');
 Route::post('/choose-role', [FormController::class, 'chooseRole'])->name('category.choose');
 
+Route::get('/contractor-quiz', function () {
+    return view('contractor-quiz');
+})->name('contractor.quiz');
+
+Route::get('/contractor-quiz/{formation}', function ($formation) {
+    // Validate and handle redirection based on formation
+    $validFormations = ['general', 'electrical', 'height', 'loto', 'guarding'];
+
+    if (in_array($formation, $validFormations)) {
+        return view('contractor-quiz-form', ['formation' => $formation]);
+    }
+
+    abort(404);
+})->name('contractor.quiz.show');
 
 Route::get('/visitor-quiz', function () {
     return view('visitor-quiz');
 })->name('visitor.quiz');
+Route::post('/visitor-quiz', [VisitorQuizController::class, 'submitQuiz'])->name('visitor.quiz.submit');
 
-Route::get('/contractor-quiz', function () {
-    return view('contractor-quiz');
-})->name('contractor.quiz');

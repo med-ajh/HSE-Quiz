@@ -41,4 +41,17 @@ return [
     'contractor' => 'Contractor',
     'submit' => 'Submit',
 
+
+    'contractor_quiz_title' => 'Choose Your Formation',
+    'visitor_quiz_title' => 'Visitor Formation Quiz',
+    'formations' => [
+        'general' => 'General',
+        'electrical' => 'Electrical',
+        'height' => 'Working at Height',
+        'loto' => 'LOTO',
+        'guarding' => 'Machine Guarding',
+    ],
+
+
+
 ];
