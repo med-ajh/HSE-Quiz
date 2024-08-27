@@ -15,7 +15,6 @@ class CreateVisitorsTable extends Migration
             $table->string('organization');
             $table->string('te_id');
             $table->string('purpose');
-            $table->enum('role', ['Visitor', 'Contractor']);
             $table->timestamps();
         });
     }
