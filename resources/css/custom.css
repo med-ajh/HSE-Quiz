@@ -1,0 +1,170 @@
+/* Base styles for smooth and elegant transitions */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: #0d6efd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #ff9800; /* Orange accent */
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-brand:hover {
+    color: #ffa726;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffa726;
+    transform: scale(1.05);
+}
+
+.header {
+    background: linear-gradient(135deg, #0d6efd, #ffa726);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    transition: background 0.3s ease-in-out;
+    margin-bottom: 50px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.header p {
+    font-size: 1.5rem;
+    animation: fadeInUp 1.2s ease-in-out;
+}
+
+.container {
+    flex: 1;
+    padding: 20px 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container h2 {
+    font-size: 2rem;
+    color: #ff9800; /* Orange accent */
+    margin-bottom: 1rem;
+    border-bottom: 3px solid #ff9800; /* Orange accent */
+    padding-bottom: 0.5rem;
+    transition: color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+}
+
+.container h2:hover {
+    color: #e65100;
+    border-bottom-color: #e65100;
+}
+
+.container p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+    transition: color 0.3s ease-in-out;
+}
+
+.container p:hover {
+    color: #333;
+}
+
+.footer {
+    background-color: #0d6efd;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: #ffa726; /* Orange accent */
+}
+
+button, .btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+button:hover, .btn:hover {
+    background-color: #e65100;
+    transform: translateY(-3px);
+}
+
+button:active, .btn:active {
+    transform: translateY(0);
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effects for links and text elements */
+.navbar-nav .nav-link:hover,
+.container h2:hover {
+    text-decoration: underline;
+}
+
+.container h2 {
+    transition: transform 0.3s ease;
+}
+
+.container h2:hover {
+    transform: scale(1.1);
+}
+
+/* Smooth scrolling for links */
+html {
+    scroll-behavior: smooth;
+}
