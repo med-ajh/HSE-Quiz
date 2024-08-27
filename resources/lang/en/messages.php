@@ -30,5 +30,15 @@ return [
     'te_id' => 'TE ID or CNE',
     'purpose' => 'Purpose of Visit',
     'submit' => 'Submit',
+    'identification_form' => 'Identification Form',
+    'last_name' => 'Last Name',
+    'first_name' => 'First Name',
+    'organization' => 'Organization',
+    'te_id' => 'TE ID or CNE',
+    'purpose' => 'Purpose of Visit',
+    'role' => 'Role',
+    'visitor' => 'Visitor',
+    'contractor' => 'Contractor',
+    'submit' => 'Submit',
 
 ];

@@ -61,7 +61,7 @@
 <body>
     <div class="container">
         <h1>{{ __('messages.welcome_title') }}</h1>
-        <a href="{{ route('identification.form') }}" class="button">{{ __('messages.start') }}</a>
+        <a href="{{ route('form.show') }}" class="button">{{ __('messages.start') }}</a>
         <div class="options">
             <a href="{{ route('contact') }}">{{ __('messages.contact') }}</a>
             <a href="{{ route('information') }}">{{ __('messages.company_info') }}</a>
