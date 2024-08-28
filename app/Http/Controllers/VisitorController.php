@@ -94,52 +94,52 @@ class VisitorController extends Controller
             'A' => 'Safety shoes, safety glasses and safety vest',
             'B' => 'Gloves and earplugs',
             'C' => 'All previous answers'
-        ]],
+        ], 'image' => asset('images/te.png')],
         2 => ['text' => 'Can you enter the factory without completing the “Safety Induction” training?', 'options' => [
             'A' => 'Yes',
             'B' => 'No',
             'C' => 'Only if you are accompanied by a staff member'
-        ]],
+        ],'image' => asset('images/te.png')],
         3 => ['text' => 'If you know someone, can you bring them into the factory without having completed “Safety Induction” training?', 'options' => [
             'A' => 'Yes',
             'B' => 'No',
             'C' => 'Yes, if wearing personal protective equipment'
-        ]],
+        ],'image' => asset('images/te.png')],
         4 => ['text' => 'What do these pictograms mean?', 'options' => [
             'A' => 'Electrical danger',
             'B' => 'Chemical hazard',
             'C' => 'Risk of falling'
-        ]],
+        ],'image' => asset('images/v4.png')],
         5 => ['text' => 'What is the correct behavior in this picture?', 'options' => [
             'A' => 'Person A',
             'B' => 'Person B',
             'C' => 'Both'
-        ]],
+        ],'image' => asset('images/v5.png')],
         6 => ['text' => 'What should you do first if you see a fire in the factory?', 'options' => [
             'A' => 'Use a fire extinguisher',
             'B' => 'Evacuate immediately',
             'C' => 'Contact the fire brigade'
-        ]],
+        ],'image' => asset('images/te.png')],
         7 => ['text' => 'What safety behaviors should be adopted in the factory?', 'options' => [
             'A' => 'Running to save time',
             'B' => 'Walking slowly and carefully while respecting safety zones',
             'C' => 'Ignoring safety instructions'
-        ]],
+        ],'image' => asset('images/te.png')],
         8 => ['text' => 'Where should hazardous waste be disposed of?', 'options' => [
             'A' => 'In regular garbage cans',
             'B' => 'In special containers for hazardous waste',
             'C' => 'Anywhere'
-        ]],
+        ],'image' => asset('images/te.png')],
         9 => ['text' => 'What should you do if you see damaged safety equipment?', 'options' => [
             'A' => 'Continue to use it',
             'B' => 'Report it immediately',
             'C' => 'Fix it myself'
-        ]],
+        ],'image' => asset('images/te.png')],
         10 => ['text' => 'How should you react in an emergency?', 'options' => [
             'A' => 'Panic and run',
             'B' => 'Follow evacuation procedures and safety instructions',
             'C' => 'Ignore the alarm and continue working'
-        ]],
+        ],'image' => asset('images/te.png')],
     ];
 
     // Check if the question number is valid
@@ -153,6 +153,8 @@ class VisitorController extends Controller
         'questionNumber' => $questionNumber,
         'questionText' => $question['text'],
         'options' => $question['options'],
+        'questionImage' => $question['image'] 
+
     ]);
 }
 

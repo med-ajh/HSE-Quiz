@@ -11,7 +11,7 @@ return [
     'last_name' => 'Last Name',
     'first_name' => 'First Name',
     'organization' => 'Organization',
-    'te_id' => 'TE ID',
+    'te_id' => 'TE ID / CNE',
     'purpose' => 'Purpose of Visit',
     'submit' => 'Submit',
     'formation' => 'Formation Details',

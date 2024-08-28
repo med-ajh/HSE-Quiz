@@ -72,8 +72,8 @@
             border-color: #545b62;
         }
         .print-button {
-            background-color: #28a745;
-            border-color: #28a745;
+            background-color: #EA8003;
+            border-color: #EA8003;
         }
         .print-button:hover {
             background-color: #218838;
@@ -133,11 +133,11 @@
             font-size: 14px;
         }
         .left-side p strong, .right-side p strong {
-            color: #f39c12; /* Orange color for titles */
+            color: #EA8003; /* Orange color for titles */
         }
         .stars {
             font-size: 20px;
-            color: #f39c12;
+            color: #EA8003;
             text-align: center;
             margin: 15px 0;
         }
@@ -188,7 +188,7 @@
         function printInfo() {
             var leftLogoUrl = "{{ asset('images/hse.png') }}";
             var rightLogoUrl = "{{ asset('images/te.png') }}";
-            var printWindow = window.open('', '', 'height=105mm,width=148mm');
+            var printWindow = window.open('', '');
             printWindow.document.write('<html><head><title>Visitor ID Card</title>');
             printWindow.document.write('<style>');
             printWindow.document.write('@page { size: 148mm 105mm; margin: 0; }');
@@ -196,13 +196,13 @@
             printWindow.document.write('.card { width: 100%; height: 100%; display: flex; flex-direction: column; border: none; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); background-color: #ffffff; overflow: hidden; }');
             printWindow.document.write('.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%); color: #000; border-bottom: 1px solid #ddd; }');
             printWindow.document.write('.logo { width: 60px; height: auto; }');
-            printWindow.document.write('.title { text-align: center; font-size: 20px; font-weight: bold; color: #000; flex: 1; }');
-            printWindow.document.write('.content { display: flex; justify-content: space-between; padding: 20px; }');
+            printWindow.document.write('.title { text-align: center; font-size: 20px; font-weight: bold; color: #EA8003; flex: 1; }');
+            printWindow.document.write('.content { display: flex; justify-content: space-between; padding: 21px; }');
             printWindow.document.write('.left-side, .right-side { width: 48%; padding: 10px; box-sizing: border-box; }');
             printWindow.document.write('.left-side { border-right: 1px solid #ddd; }');
             printWindow.document.write('.right-side { border-left: 1px solid #ddd; }');
-            printWindow.document.write('.left-side p strong, .right-side p strong { color: #f39c12; }');
-            printWindow.document.write('.stars { font-size: 20px; color: #f39c12; text-align: center; margin: 15px 0; }');
+            printWindow.document.write('.left-side p strong, .right-side p strong { color: #EA8003; }');
+            printWindow.document.write('.stars { font-size: 20px; color: #EA8003; text-align: center; margin: 16px 0; }');
             printWindow.document.write('</style></head><body>');
             printWindow.document.write('<div class="card">');
             printWindow.document.write('<div class="top-bar">');
@@ -212,7 +212,7 @@
             printWindow.document.write('</div>');
             printWindow.document.write('<div class="content">');
             printWindow.document.write('<div class="left-side">');
-            printWindow.document.write('<p><strong>First Name : </strong> {{ $visitor->first_name }}</p>');
+            printWindow.document.write('<p><strong>First Name :</strong> {{ $visitor->first_name }}</p>');
             printWindow.document.write('<p><strong>Last Name : </strong> {{ $visitor->last_name }}</p>');
             printWindow.document.write('<p><strong>Organization : </strong> {{ $visitor->organization }}</p>');
             printWindow.document.write('<p><strong>TE ID / CNE : </strong> {{ $visitor->te_id }}</p>');
