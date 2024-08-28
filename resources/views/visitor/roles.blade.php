@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('messages.quiz_instructions') }}</title>
-    <!-- Bootstrap CSS -->
+    <link rel="icon" href="{{ asset('images/te.png') }}" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -123,9 +123,27 @@
             justify-content: center;
             margin-top: 30px;
         }
+
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo-container img {
+            max-height: 67px;
+            width: auto;
+        }
     </style>
 </head>
 <body>
+    <div class="logo-container">
+        <img src="{{ asset('images/te.png') }}" alt="Logo 1">
+        <img src="{{ asset('images/hse.png') }}" alt="Logo 2">
+    </div>
     <div class="background-animation"></div>
     <div class="container">
         <div class="row justify-content-center">

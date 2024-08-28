@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visitor ID Card</title>
+    <link rel="icon" href="{{ asset('images/te.png') }}" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -14,6 +15,7 @@
             padding: 0;
             margin: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -32,6 +34,17 @@
             z-index: -1;
         }
 
+        .logo {
+            width: 120px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 20px; /* Space between logo and card */
+            position: absolute;
+            top: 10px; /* Distance from top */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1; /* Ensure it is above other elements */
+        }
+
         .result-card {
             border: none;
             border-radius: 15px;
@@ -42,6 +55,7 @@
             text-align: center;
             max-width: 600px;
             margin: auto;
+            margin-top: 80px; /* Ensure space between logo and card */
         }
 
         .result-card h5 {
@@ -86,7 +100,6 @@
         .btn-icon:hover {
             background-color: #d97706;
             color: #ffffff; /* White text color */
-            /* Darker shade of orange on hover */
         }
 
         .retry-button {
@@ -99,70 +112,10 @@
             background-color: #d97706; /* Darker orange on hover */
         }
 
-        .card {
-            width: 148mm;
-            height: 105mm;
+        .retry-container {
             display: flex;
-            flex-direction: column;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            background-color: #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%);
-            color: #000;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .logo {
-            width: 60px;
-            height: auto;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #EA8003;
-            flex: 1;
-        }
-
-        .content {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            flex: 1;
-        }
-
-        .left-side, .right-side {
-            width: 48%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .left-side {
-            border-right: 1px solid #ddd;
-        }
-
-        .right-side {
-            border-left: 1px solid #ddd;
-        }
-
-        .left-side p, .right-side p {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        .left-side p strong, .right-side p strong {
-            color: #EA8003; /* Orange color for titles */
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .back-button {
@@ -176,16 +129,11 @@
             top: 10px;
             right: 10px;
         }
-
-        .retry-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
     <div class="background-animation"></div>
+    <img src="{{ asset('images/te.png') }}" alt="Logo" class="logo">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -211,12 +159,12 @@
                             </div>
                         @endif
                         <a href="{{ route('language') }}" class="btn-icon back-button" title="Back"><i class="fas fa-arrow-left"></i></a>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
         function playSound(soundFile) {
