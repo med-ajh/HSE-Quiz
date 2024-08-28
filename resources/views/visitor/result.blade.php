@@ -173,50 +173,68 @@
         }
 
         function printInfo() {
-            var leftLogoUrl = "{{ asset('images/hse.png') }}";
-            var rightLogoUrl = "{{ asset('images/te.png') }}";
-            var printWindow = window.open('', '');
-            printWindow.document.write('<html><head><title>Visitor ID Card</title>');
-            printWindow.document.write('<style>');
-            printWindow.document.write('@page { size: 148mm 105mm; margin: 0; }');
-            printWindow.document.write('body { font-family: Arial, sans-serif; width: 148mm; height: 105mm; margin: 0; display: flex; justify-content: center; align-items: center; background-color: #e9ecef; }');
-            printWindow.document.write('.card { width: 100%; height: 100%; display: flex; flex-direction: column; border: none; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); background-color: #ffffff; overflow: hidden; }');
-            printWindow.document.write('.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%); color: #000; border-bottom: 1px solid #ddd; }');
-            printWindow.document.write('.logo { width: 60px; height: auto; }');
-            printWindow.document.write('.title { text-align: center; font-size: 20px; font-weight: bold; color: #EA8003; flex: 1; }');
-            printWindow.document.write('.content { display: flex; justify-content: space-between; padding: 21px; }');
-            printWindow.document.write('.left-side, .right-side { width: 48%; padding: 10px; box-sizing: border-box; }');
-            printWindow.document.write('.left-side { border-right: 1px solid #ddd; }');
-            printWindow.document.write('.right-side { border-left: 1px solid #ddd; }');
-            printWindow.document.write('.left-side p strong, .right-side p strong { color: #EA8003; }');
-            printWindow.document.write('.stars { font-size: 20px; color: #EA8003; text-align: center; margin: 16px 0; }');
-            printWindow.document.write('</style></head><body>');
-            printWindow.document.write('<div class="card">');
-            printWindow.document.write('<div class="top-bar">');
-            printWindow.document.write('<img src="' + leftLogoUrl + '" alt="Left Logo" class="logo">');
-            printWindow.document.write('<div class="title">Visitor Identification Card</div>');
-            printWindow.document.write('<img src="' + rightLogoUrl + '" alt="Right Logo" class="logo">');
-            printWindow.document.write('</div>');
-            printWindow.document.write('<div class="content">');
-            printWindow.document.write('<div class="left-side">');
-            printWindow.document.write('<p><strong>First Name :</strong> {{ $visitor->first_name }}</p>');
-            printWindow.document.write('<p><strong>Last Name : </strong> {{ $visitor->last_name }}</p>');
-            printWindow.document.write('<p><strong>Organization : </strong> {{ $visitor->organization }}</p>');
-            printWindow.document.write('<p><strong>TE ID / CNE : </strong> {{ $visitor->te_id }}</p>');
-            printWindow.document.write('</div>');
-            printWindow.document.write('<div class="right-side">');
-            printWindow.document.write('<p><strong>Score : </strong> {{ $score }} out of 10</p>');
-            printWindow.document.write('<p><strong>Date : </strong> {{ date("d-m-Y") }}</p>');
-            printWindow.document.write('<p><strong>Status : </strong> {{ $score >= 6 ? "Passed" : "Failed" }}</p>');
-            printWindow.document.write('</div>');
-            printWindow.document.write('</div>');
-            printWindow.document.write('<p><strong>Purpose of visit : </strong> {{ $visitor->purpose }}</p>');
-            printWindow.document.write('</div>');
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-        }
+    var leftLogoUrl = "{{ asset('images/hse.png') }}";
+    var rightLogoUrl = "{{ asset('images/te.png') }}";
+
+    // Create a hidden iframe for printing
+    var iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.width = '0px';
+    iframe.style.height = '0px';
+    iframe.style.border = 'none';
+    document.body.appendChild(iframe);
+
+    var iframeDoc = iframe.contentWindow.document;
+
+    // Write the content to the iframe
+    iframeDoc.open();
+    iframeDoc.write('<html><head><title>Visitor ID Card</title>');
+    iframeDoc.write('<style>');
+    iframeDoc.write('@page { size: 148mm 105mm; margin: 0; }');
+    iframeDoc.write('body { font-family: Arial, sans-serif; width: 148mm; height: 105mm; margin: 0; display: flex; justify-content: center; align-items: center; background-color: #e9ecef; }');
+    iframeDoc.write('.card { width: 100%; height: 100%; display: flex; flex-direction: column; border: none; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); background-color: #ffffff; overflow: hidden; }');
+    iframeDoc.write('.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%); color: #000; border-bottom: 1px solid #ddd; }');
+    iframeDoc.write('.logo { width: 60px; height: auto; }');
+    iframeDoc.write('.title { text-align: center; font-size: 20px; font-weight: bold; color: #EA8003; flex: 1; }');
+    iframeDoc.write('.content { display: flex; justify-content: space-between; padding: 21px; }');
+    iframeDoc.write('.left-side, .right-side { width: 48%; padding: 10px; box-sizing: border-box; }');
+    iframeDoc.write('.left-side { border-right: 1px solid #ddd; }');
+    iframeDoc.write('.right-side { border-left: 1px solid #ddd; }');
+    iframeDoc.write('.left-side p strong, .right-side p strong { color: #EA8003; }');
+    iframeDoc.write('.stars { font-size: 20px; color: #EA8003; text-align: center; margin: 16px 0; }');
+    iframeDoc.write('</style></head><body>');
+    iframeDoc.write('<div class="card">');
+    iframeDoc.write('<div class="top-bar">');
+    iframeDoc.write('<img src="' + leftLogoUrl + '" alt="Left Logo" class="logo">');
+    iframeDoc.write('<div class="title">Visitor Identification Card</div>');
+    iframeDoc.write('<img src="' + rightLogoUrl + '" alt="Right Logo" class="logo">');
+    iframeDoc.write('</div>');
+    iframeDoc.write('<div class="content">');
+    iframeDoc.write('<div class="left-side">');
+    iframeDoc.write('<p><strong>First Name :</strong> {{ $visitor->first_name }}</p>');
+    iframeDoc.write('<p><strong>Last Name : </strong> {{ $visitor->last_name }}</p>');
+    iframeDoc.write('<p><strong>Organization : </strong> {{ $visitor->organization }}</p>');
+    iframeDoc.write('<p><strong>TE ID / CNE : </strong> {{ $visitor->te_id }}</p>');
+    iframeDoc.write('</div>');
+    iframeDoc.write('<div class="right-side">');
+    iframeDoc.write('<p><strong>Score : </strong> {{ $score }} out of 10</p>');
+    iframeDoc.write('<p><strong>Date : </strong> {{ date("d-m-Y") }}</p>');
+    iframeDoc.write('<p><strong>Status : </strong> {{ $score >= 6 ? "Passed" : "Failed" }}</p>');
+    iframeDoc.write('</div>');
+    iframeDoc.write('</div>');
+    iframeDoc.write('<p><strong>Purpose of visit : </strong> {{ $visitor->purpose }}</p>');
+    iframeDoc.write('</div>');
+    iframeDoc.write('</body></html>');
+    iframeDoc.close();
+
+    // Wait for the iframe to load the content before printing
+    iframe.onload = function() {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        // Remove the iframe after printing
+        document.body.removeChild(iframe);
+    };
+}
 
         function retryQuiz() {
             window.location.href = "{{ route('visitor.video') }}";
