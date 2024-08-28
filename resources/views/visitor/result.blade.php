@@ -8,38 +8,67 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .container {
-            margin-top: 50px;
+            background: linear-gradient(135deg, #e0e5e8, #f4f7f6);
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            padding: 0;
+            margin: 0;
             display: flex;
+            align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
         }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.2), rgba(255, 255, 255, 0));
+            animation: backgroundAnimation 15s ease infinite;
+            z-index: -1;
+        }
+
         .result-card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             padding: 20px;
-            background-color: #ffffff;
+            background-color: #EA8003; /* Orange background */
+            color: #fff; /* White text color for contrast */
             text-align: center;
             max-width: 600px;
             margin: auto;
         }
+
         .result-card h5 {
             font-size: 1.75rem;
             margin-bottom: 15px;
-            color: #333;
+            color: #ffffff; /* White text color */
         }
+
         .result-card p {
             font-size: 1.1rem;
-            color: #555;
+            color: #ffffff; /* White text color */
         }
-        .result-card .stars {
+
+        .stars {
             font-size: 2rem;
-            color: #f39c12;
+            color: #f8d700; /* Gold color for stars */
             margin: 20px 0;
         }
+
+        .stars i {
+            color: #f8d700; /* Gold color for filled stars */
+        }
+
+        .stars i.empty {
+            color: #ccc; /* Gray color for empty stars */
+        }
+
         .btn-icon {
             font-size: 1.5rem;
             border-radius: 50%;
@@ -51,34 +80,25 @@
             padding: 0;
             border: none;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            color: #d97706; /* White text color */
         }
+
         .btn-icon:hover {
-            background-color: #f8f9fa;
+            background-color: #d97706;
+            color: #ffffff; /* White text color */
+            /* Darker shade of orange on hover */
         }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+
+        .retry-button {
+            background-color: #EA8003; /* Orange background */
+            border-color: #EA8003; /* Orange border */
+            color: #ffffff; /* White text color */
         }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004494;
+
+        .retry-button:hover {
+            background-color: #d97706; /* Darker orange on hover */
         }
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-        }
-        .print-button {
-            background-color: #EA8003;
-            border-color: #EA8003;
-        }
-        .print-button:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
+
         .card {
             width: 148mm;
             height: 105mm;
@@ -91,6 +111,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -100,60 +121,71 @@
             color: #000;
             border-bottom: 1px solid #ddd;
         }
+
         .logo {
             width: 60px;
             height: auto;
         }
+
         .title {
             text-align: center;
             font-size: 20px;
             font-weight: bold;
-            color: #000;
+            color: #EA8003;
             flex: 1;
         }
+
         .content {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             flex: 1;
         }
+
         .left-side, .right-side {
             width: 48%;
             padding: 10px;
             box-sizing: border-box;
         }
+
         .left-side {
             border-right: 1px solid #ddd;
         }
+
         .right-side {
             border-left: 1px solid #ddd;
         }
+
         .left-side p, .right-side p {
             margin: 0;
             font-size: 14px;
         }
+
         .left-side p strong, .right-side p strong {
             color: #EA8003; /* Orange color for titles */
         }
-        .stars {
-            font-size: 20px;
-            color: #EA8003;
-            text-align: center;
-            margin: 15px 0;
-        }
+
         .back-button {
             position: absolute;
             top: 10px;
             left: 10px;
         }
+
         .print-button {
             position: absolute;
             top: 10px;
             right: 10px;
         }
+
+        .retry-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+    <div class="background-animation"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -164,19 +196,21 @@
                         <p><strong>Score:</strong> {{ $score }} out of 10</p>
 
                         <div class="stars">
-                            @for ($i = 1; $i <= $stars; $i++)
-                                ★
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fas fa-star {{ $i <= max(0, min(5, $score - 5)) ? 'filled' : 'empty' }}"></i>
                             @endfor
                         </div>
 
                         @if ($score >= 6)
                             <p>Congratulations on passing the Test!</p>
-                            <button onclick="printInfo()" class="btn-icon print-button text-light" title="Print"><i class="fas fa-print"></i></button>
+                            <button onclick="printInfo(); playSound('print-sound.mp3');" class="btn-icon print-button" title="Print"><i class="fas fa-print"></i></button>
                         @else
                             <p>Unfortunately, you did not pass the test. Please try again.</p>
-                            <a href="{{ route('visitor.video') }}" class="btn btn-primary mt-3">Retry Test</a>
+                            <div class="retry-container">
+                                <button onclick="retryQuiz();" class="btn-icon retry-button" title="Retry"><i class="fas fa-redo"></i></button>
+                            </div>
                         @endif
-                        <a href="{{ route('language') }}" class="btn-icon back-button text-light" title="Back"><i class="fas fa-arrow-left"></i></a>
+                        <a href="{{ route('language') }}" class="btn-icon back-button" title="Back"><i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
             </div>
@@ -185,6 +219,11 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
+        function playSound(soundFile) {
+            var audio = new Audio(soundFile);
+            audio.play();
+        }
+
         function printInfo() {
             var leftLogoUrl = "{{ asset('images/hse.png') }}";
             var rightLogoUrl = "{{ asset('images/te.png') }}";
@@ -229,6 +268,10 @@
             printWindow.document.close();
             printWindow.focus();
             printWindow.print();
+        }
+
+        function retryQuiz() {
+            window.location.href = "{{ route('visitor.video') }}";
         }
     </script>
 </body>

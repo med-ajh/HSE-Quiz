@@ -14,12 +14,18 @@
             color: #333;
             margin: 0;
             padding: 0;
+            overflow: hidden; /* Prevents scrolling to see the background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100%;
+            width: 100%;
         }
         .card {
             border: none;
@@ -31,6 +37,8 @@
             width: 100%;
             padding: 2.5rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
         .card:hover {
             transform: translateY(-5px);
@@ -113,6 +121,9 @@
             transform: scale(1.1);
         }
         .question-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
             max-width: 100%;
             height: auto;
             border-radius: 12px;
@@ -124,9 +135,25 @@
             text-align: center;
             margin-top: 2rem;
         }
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.2), rgba(255, 255, 255, 0));
+            animation: backgroundAnimation 15s ease infinite;
+            z-index: -1;
+        }
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
     </style>
 </head>
 <body>
+    <div class="background-animation"></div>
     <div class="container">
         <div class="card">
             <div class="text-center">
@@ -149,7 +176,7 @@
                         @endforeach
                     </div>
                     <div class="icon-container">
-                        <button type="submit" class="btn-icon">
+                        <button type="submit" class="btn-icon" onclick="playSound()">
                             <i class="fas fa-arrow-right"></i> <!-- Using Font Awesome arrow icon -->
                         </button>
                     </div>
@@ -157,7 +184,14 @@
             </div>
         </div>
     </div>
+    <audio id="buttonSound" src="path/to/sound.mp3" preload="auto"></audio> <!-- Add your sound file here -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        function playSound() {
+            var sound = document.getElementById('buttonSound');
+            sound.play();
+        }
+    </script>
 </body>
 </html>
