@@ -24,5 +24,12 @@ Route::post('/visitor/register', [VisitorController::class, 'register'])->name('
 Route::get('/visitor/formation', [VisitorController::class, 'showFormation'])->name('visitor.formation');
 Route::get('/visitor/video', [VisitorController::class, 'showVideo'])->name('visitor.video');
 Route::get('/visitor/roles', [VisitorController::class, 'showRoles'])->name('visitor.roles');
-Route::get('/visitor/questions', [VisitorController::class, 'showQuestions'])->name('visitor.questions');
-Route::post('/visitor/submit-questions', [VisitorController::class, 'submitQuestions'])->name('visitor.submit-questions');
+
+// Route for displaying questions with optional questionNumber
+Route::get('/visitor/question/{questionNumber?}', [VisitorController::class, 'showQuestion'])->name('visitor.question');
+
+// Route for submitting answers
+Route::post('/visitor/submit-question/{questionNumber}', [VisitorController::class, 'submitQuestion'])->name('visitor.submit-question');
+
+// Route for showing the result
+Route::get('/visitor/result', [VisitorController::class, 'showResult'])->name('visitor.result');

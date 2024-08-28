@@ -13,7 +13,6 @@ class VisitorController extends Controller
         return view('visitor.registration');
     }
 
-    // Handle the registration form submission
     public function register(Request $request)
     {
         $request->validate([
@@ -59,37 +58,145 @@ class VisitorController extends Controller
         return view('visitor.video', compact('videoPath'));
     }
 
-    // Show the quiz questions
-    public function showQuestions()
+    // Show roles page
+    public function showRoles()
     {
-        if (!session()->has('visitor')) {
-            // Redirect to registration if visitor data is not present
+        return view('visitor.roles');
+    }
+
+
+    // Handle quiz question submission
+    public function submitQuestion(Request $request, $questionNumber)
+    {
+        $request->validate([
+            'answer' => 'required'
+        ]);
+
+        // Store answers in session
+        $answers = session('answers', []);
+        $answers[$questionNumber] = $request->input('answer');
+        session(['answers' => $answers]);
+
+        // Redirect to next question or result
+        if ($questionNumber < 10) {
+            return redirect()->route('visitor.question', ['questionNumber' => $questionNumber + 1]);
+        } else {
+            return redirect()->route('visitor.result');
+        }
+    }
+
+
+
+    public function showQuestion($questionNumber)
+{
+    $questions = [
+        1 => ['text' => 'What personal protective equipment is required to enter the factory?', 'options' => [
+            'A' => 'Safety shoes, safety glasses and safety vest',
+            'B' => 'Gloves and earplugs',
+            'C' => 'All previous answers'
+        ]],
+        2 => ['text' => 'Can you enter the factory without completing the “Safety Induction” training?', 'options' => [
+            'A' => 'Yes',
+            'B' => 'No',
+            'C' => 'Only if you are accompanied by a staff member'
+        ]],
+        3 => ['text' => 'If you know someone, can you bring them into the factory without having completed “Safety Induction” training?', 'options' => [
+            'A' => 'Yes',
+            'B' => 'No',
+            'C' => 'Yes, if wearing personal protective equipment'
+        ]],
+        4 => ['text' => 'What do these pictograms mean?', 'options' => [
+            'A' => 'Electrical danger',
+            'B' => 'Chemical hazard',
+            'C' => 'Risk of falling'
+        ]],
+        5 => ['text' => 'What is the correct behavior in this picture?', 'options' => [
+            'A' => 'Person A',
+            'B' => 'Person B',
+            'C' => 'Both'
+        ]],
+        6 => ['text' => 'What should you do first if you see a fire in the factory?', 'options' => [
+            'A' => 'Use a fire extinguisher',
+            'B' => 'Evacuate immediately',
+            'C' => 'Contact the fire brigade'
+        ]],
+        7 => ['text' => 'What safety behaviors should be adopted in the factory?', 'options' => [
+            'A' => 'Running to save time',
+            'B' => 'Walking slowly and carefully while respecting safety zones',
+            'C' => 'Ignoring safety instructions'
+        ]],
+        8 => ['text' => 'Where should hazardous waste be disposed of?', 'options' => [
+            'A' => 'In regular garbage cans',
+            'B' => 'In special containers for hazardous waste',
+            'C' => 'Anywhere'
+        ]],
+        9 => ['text' => 'What should you do if you see damaged safety equipment?', 'options' => [
+            'A' => 'Continue to use it',
+            'B' => 'Report it immediately',
+            'C' => 'Fix it myself'
+        ]],
+        10 => ['text' => 'How should you react in an emergency?', 'options' => [
+            'A' => 'Panic and run',
+            'B' => 'Follow evacuation procedures and safety instructions',
+            'C' => 'Ignore the alarm and continue working'
+        ]],
+    ];
+
+    // Check if the question number is valid
+    if (!array_key_exists($questionNumber, $questions)) {
+        // Redirect to the first question if the number is invalid
+        return redirect()->route('visitor.question', ['questionNumber' => 1]);
+    }
+
+    $question = $questions[$questionNumber];
+    return view('visitor.question', [
+        'questionNumber' => $questionNumber,
+        'questionText' => $question['text'],
+        'options' => $question['options'],
+    ]);
+}
+
+
+        public function showResult()
+    {
+        if (!session()->has('visitor') || !session()->has('answers')) {
+            // Redirect to registration if visitor data or answers are not present
             return redirect()->route('visitor.registration');
         }
 
-        return view('visitor.questions');
-    }
+        // Answers and correct answers
+        $answers = session('answers');
+        $correctAnswers = [
+            1 => 'A',
+            2 => 'B',
+            3 => 'B',
+            4 => 'B',
+            5 => 'B',
+            6 => 'B',
+            7 => 'B',
+            8 => 'B',
+            9 => 'B',
+            10 => 'B'
+        ];
 
-    // Handle the quiz submission
-    public function submitQuestions(Request $request)
-    {
-        $request->validate([
-            'question_1' => 'required',
-            'question_2' => 'required',
-            'question_3' => 'required',
-            'question_4' => 'required',
-        ]);
+        // Calculate score
+        $score = 0;
+        foreach ($correctAnswers as $questionNumber => $correctAnswer) {
+            if (isset($answers[$questionNumber]) && $answers[$questionNumber] === $correctAnswer) {
+                $score++;
+            }
+        }
 
-        // Normally, you would check answers and determine pass/fail status here
-        // For simplicity, we're assuming the visitor passes
+        // Determine stars based on score
+        $stars = 0;
+        if ($score >= 6) $stars = 1;
+        if ($score >= 8) $stars = 2;
+        if ($score === 10) $stars = 3;
 
         return view('visitor.result', [
-            'visitor' => session('visitor')
+            'visitor' => session('visitor'),
+            'score' => $score,
+            'stars' => $stars
         ]);
     }
-
-    public function showRoles()
-{
-    return view('visitor.roles');
-}
 }

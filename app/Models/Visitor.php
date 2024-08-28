@@ -15,6 +15,10 @@ class Visitor extends Model
         'organization',
         'te_id',
         'purpose',
-        'role',
     ];
+
+    public function answers()
+    {
+        return $this->hasMany(VisitorAnswer::class);
+    }
 }

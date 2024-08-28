@@ -63,7 +63,7 @@
                             <li>{{ __('messages.question_format_2') }}</li>
                             <li>{{ __('messages.question_format_3') }}</li>
                         </ul>
-                        <a href="{{ route('visitor.questions') }}" class="btn btn-primary">{{ __('messages.start_quiz') }}</a>
+                        <a href="{{ route('visitor.question', ['questionNumber' => 1]) }}" class="btn btn-primary">{{ __('messages.start_quiz') }}</a>
                     </div>
                 </div>
             </div>
