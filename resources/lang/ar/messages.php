@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'registrations' => 'تسجيل ',
     'select_language' => 'اختر لغتك',
     'english' => 'الإنجليزية',
     'arabic' => 'العربية',

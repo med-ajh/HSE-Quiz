@@ -153,7 +153,7 @@
                 <h2>Visitor</h2>
                 <p>Register as a visitor to explore our platform and experience our services tailored to your needs. </p>
             </a>
-            <a href="{{ route('visitor.registration') }}" class="role-card">
+            <a href="{{ route('contractor.registration') }}" class="role-card">
                 <i class="fa-solid fa-hard-hat"></i>
                 <h2>Contractor</h2>
                 <p>Join us as a contractor to explore our platform, and experience our services tailored to your needs. </p>

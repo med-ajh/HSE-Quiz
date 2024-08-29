@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'registrations' => 'Contractor Registration',
     'select_language' => 'Select Your Language',
     'english' => 'English',
     'arabic' => 'Arabic',
