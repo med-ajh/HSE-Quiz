@@ -31,7 +31,7 @@ Route::post('/visitor/submit-question/{questionNumber}', [VisitorController::cla
 Route::get('/visitor/result', [VisitorController::class, 'showResult'])->name('visitor.result');
 
 
-
+// Visitor contractor
 Route::get('/contractor/register', [ContractorController::class, 'showRegistrationForm'])->name('contractor.registration');
 Route::post('/contractor/register', [ContractorController::class, 'register'])->name('contractor.register');
 Route::get('/contractor/formation', [ContractorController::class, 'showFormation'])->name('contractor.formation');

@@ -37,7 +37,7 @@ class VisitorController extends Controller
     public function showFormation()
     {
         if (!session()->has('visitor')) {
-            // Redirect to registration if visitor data is not present
+            // Redirect to registration if visitor data is not  
             return redirect()->route('visitor.registration');
         }
 
@@ -153,7 +153,7 @@ class VisitorController extends Controller
         'questionNumber' => $questionNumber,
         'questionText' => $question['text'],
         'options' => $question['options'],
-        'questionImage' => $question['image'] 
+        'questionImage' => $question['image']
 
     ]);
 }

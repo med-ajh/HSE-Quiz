@@ -190,7 +190,7 @@
     iframeDoc.open();
     iframeDoc.write('<html><head><title>Visitor ID Card</title>');
     iframeDoc.write('<style>');
-    iframeDoc.write('@page { size: 148mm 105mm; margin: 0; }');
+    iframeDoc.write('@page { size: 105mm 74mm; margin: 0; }');
     iframeDoc.write('body { font-family: Arial, sans-serif; width: 148mm; height: 105mm; margin: 0; display: flex; justify-content: center; align-items: center; background-color: #e9ecef; }');
     iframeDoc.write('.card { width: 100%; height: 100%; display: flex; flex-direction: column; border: none; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); background-color: #ffffff; overflow: hidden; }');
     iframeDoc.write('.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%); color: #000; border-bottom: 1px solid #ddd; }');
