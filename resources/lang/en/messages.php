@@ -37,4 +37,17 @@ return [
     'question_format_3' => 'The questions will be randomly selected each time you start the quiz.',
     'start_quiz' => 'Start Quiz',
 
+    'last_name' => 'Last Name',
+    'enter_last_name' => 'Enter your last name',
+    'first_name' => 'First Name',
+    'enter_first_name' => 'Enter your first name',
+    'organization' => 'Organization',
+    'enter_organization' => 'Enter your organization',
+    'te_id' => 'TE ID',
+    'enter_te_id' => 'Enter your TE ID',
+    'host' => 'Host',
+    'host' => 'Enter the host',
+    'purpose' => 'Purpose',
+    'enter_purpose' => 'Enter the purpose',
+
 ];
