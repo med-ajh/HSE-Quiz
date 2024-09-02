@@ -6,6 +6,8 @@ use App\Models\Contractor;
 use App\Models\Quiz;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class ContractorController extends Controller
 {
@@ -37,110 +39,84 @@ class ContractorController extends Controller
     }
 
 
-    // Step 3: List formations (quizzes)
-    public function listFormations()
+    public function showFormations()
     {
-        if (!session()->has('contractor')) {
-            // Redirect to registration if contractor data is not present
-            return redirect()->route('contractor.registration');
-        }
+        $formations = [
+            [
+                'id' => 1,
+                'title' => 'Safety Procedures in Manufacturing',
+                'description' => 'Learn about the best safety practices in manufacturing environments.',
+                'image' => 'images/formation1.jpg',
+                'video' => 'videos/formation1.mp4',
+                'quiz' => [
+                    ['question' => 'What is the primary goal of safety procedures?', 'options' => ['Increase productivity', 'Prevent accidents', 'Reduce costs'], 'answer' => 1],
+                    ['question' => 'Which of the following is a common safety measure?', 'options' => ['Protective equipment', 'Open electrical panels', 'Unsecured machinery'], 'answer' => 0],
+                    ['question' => 'How often should safety training be updated?', 'options' => ['Once a year', 'Every two years', 'Ongoing'], 'answer' => 2]
+                ]
+            ],
+            [
+                'id' => 2,
+                'title' => 'Introduction to Electrical Connectors',
+                'description' => 'Understand the basics of electrical connectors used in various applications.',
+                'image' => 'images/formation2.jpg',
+                'video' => 'videos/formation2.mp4',
+                'quiz' => [
+                    ['question' => 'What is the purpose of an electrical connector?', 'options' => ['To connect circuits', 'To insulate wires', 'To power devices'], 'answer' => 0],
+                    ['question' => 'Which type of connector is used for high-speed data transmission?', 'options' => ['USB', 'RCA', 'XLR'], 'answer' => 0],
+                    ['question' => 'What material is commonly used in connectors for durability?', 'options' => ['Plastic', 'Aluminum', 'Copper'], 'answer' => 1]
+                ]
+            ],
+            [
+                'id' => 3,
+                'title' => 'Cable Management Techniques',
+                'description' => 'Learn about effective methods for managing cables in various setups.',
+                'image' => 'images/formation3.jpg',
+                'video' => 'videos/formation3.mp4',
+                'quiz' => [
+                    ['question' => 'Why is cable management important?', 'options' => ['To improve aesthetics', 'To prevent signal interference', 'To reduce cost'], 'answer' => 1],
+                    ['question' => 'Which tool is commonly used for cable management?', 'options' => ['Cable ties', 'Heat shrink tubing', 'Crimping tool'], 'answer' => 0],
+                    ['question' => 'What is a common mistake in cable management?', 'options' => ['Over-bundling cables', 'Using cable clips', 'Color-coding cables'], 'answer' => 0]
+                ]
+            ],
+            [
+                'id' => 4,
+                'title' => 'Advanced Connector Technologies',
+                'description' => 'Explore advanced technologies in connectors and their applications.',
+                'image' => 'images/formation4.jpg',
+                'video' => 'videos/formation4.mp4',
+                'quiz' => [
+                    ['question' => 'What is an advanced feature of modern connectors?', 'options' => ['High-speed data transfer', 'Enhanced insulation', 'Eco-friendly materials'], 'answer' => 0],
+                    ['question' => 'Which industry benefits from advanced connectors the most?', 'options' => ['Automotive', 'Healthcare', 'Telecommunications'], 'answer' => 2],
+                    ['question' => 'What does “IP rating” indicate in connectors?', 'options' => ['Impact protection', 'Ingress protection', 'Insulation performance'], 'answer' => 1]
+                ]
+            ],
+            [
+                'id' => 5,
+                'title' => 'Quality Assurance in Connector Manufacturing',
+                'description' => 'Understand the quality control measures in connector manufacturing.',
+                'image' => 'images/hse.png',
+                'video' => 'videos/formation5.mp4',
+                'quiz' => [
+                    ['question' => 'What is a common quality control method in manufacturing?', 'options' => ['Visual inspection', 'Random sampling', 'Destructive testing'], 'answer' => 1],
+                    ['question' => 'What standard is often used for quality assurance in connectors?', 'options' => ['ISO 9001', 'IEC 60601', 'UL 94'], 'answer' => 0],
+                    ['question' => 'Why is traceability important in manufacturing?', 'options' => ['To ensure product safety', 'To reduce manufacturing costs', 'To speed up production'], 'answer' => 0]
+                ]
+            ],
+            [
+                'id' => 6,
+                'title' => 'TE Connectivity Product Overview',
+                'description' => 'Get an overview of TE Connectivity products and their uses.',
+                'image' => 'images/formation6.jpg',
+                'video' => 'videos/formation6.mp4',
+                'quiz' => [
+                    ['question' => 'Which product category does TE Connectivity specialize in?', 'options' => ['Electrical connectors', 'Mechanical components', 'Software solutions'], 'answer' => 2],
+                    ['question' => 'What is a key advantage of TE Connectivity products?', 'options' => ['Innovation', 'Cost-effectiveness', 'Ease of installation'], 'answer' => 0],
+                    ['question' => 'In which industries are TE Connectivity products commonly used?', 'options' => ['Automotive and Aerospace', 'Fashion and Textiles', 'Food and Beverage'], 'answer' => 1]
+                ]
+            ]
+        ];
 
-        $formations = Quiz::all(); // Get all formations (quizzes)
         return view('contractor.formations', compact('formations'));
-    }
 
-    // Step 4: Show video before the quiz
-    public function showVideo($quizId)
-    {
-        if (!session()->has('contractor')) {
-            // Redirect to registration if contractor data is not present
-            return redirect()->route('contractor.registration');
-        }
-
-        $quiz = Quiz::findOrFail($quizId); // Find the selected quiz
-        return view('contractor.video', compact('quiz'));
-    }
-
-    // Step 5: Show the quiz
-    public function showQuiz($quizId, $questionNumber = 1)
-    {
-        if (!session()->has('contractor')) {
-            // Redirect to registration if contractor data is not present
-            return redirect()->route('contractor.registration');
-        }
-
-        $quiz = Quiz::findOrFail($quizId); // Find the selected quiz
-        $questions = $quiz->questions; // Get all questions for the quiz
-
-        if ($questionNumber > $questions->count()) {
-            return redirect()->route('contractor.result', $quizId); // Redirect to result if all questions are answered
-        }
-
-        $question = $questions[$questionNumber - 1]; // Get the current question
-
-        return view('contractor.quiz', compact('quiz', 'question', 'questionNumber'));
-    }
-
-    // Step 6: Handle quiz submission
-    public function submitQuiz(Request $request, $quizId, $questionNumber)
-    {
-        $request->validate([
-            'answer' => 'required'
-        ]);
-
-        // Store answers in session
-        $answers = session('quiz_answers', []);
-        $answers[$quizId][$questionNumber] = $request->input('answer');
-        session(['quiz_answers' => $answers]);
-
-        // Redirect to next question or result
-        return redirect()->route('contractor.quiz', [$quizId, $questionNumber + 1]);
-    }
-
-    // Step 7: Show result page
-    public function showResult($quizId)
-    {
-        if (!session()->has('contractor') || !session()->has('quiz_answers')) {
-            return redirect()->route('contractor.registration');
-        }
-
-        $quiz = Quiz::findOrFail($quizId);
-        $questions = $quiz->questions;
-        $answers = session('quiz_answers')[$quizId];
-
-        // Calculate score
-        $score = 0;
-        foreach ($questions as $index => $question) {
-            if ($answers[$index + 1] === $question->correct_option) {
-                $score++;
-            }
-        }
-
-        $passed = $score >= 6;
-
-        // Update contractor's formations if passed
-        if ($passed) {
-            $contractor = session('contractor');
-            $formations = $contractor->formations_passed ? explode(',', $contractor->formations_passed) : [];
-            $formations[] = $quiz->title;
-            $contractor->formations_passed = implode(',', $formations);
-            $contractor->save();
-        }
-
-        return view('contractor.result', compact('quiz', 'score', 'passed'));
-    }
-
-    // Step 8: Finish and show summary
-    public function finish()
-    {
-        if (!session()->has('contractor')) {
-            // Redirect to registration if contractor data is not present
-            return redirect()->route('contractor.registration');
-        }
-
-        $contractor = session('contractor');
-        $formations = $contractor->formations_passed ? explode(',', $contractor->formations_passed) : [];
-
-        return view('contractor.finish', compact('contractor', 'formations'));
     }
 }

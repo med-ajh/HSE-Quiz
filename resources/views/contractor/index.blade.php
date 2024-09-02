@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Formation</title>
-    <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include FontAwesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f7f7f7;
@@ -38,8 +35,8 @@
         }
         .formation-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Two cards per row */
-            gap: 2rem; /* Spacing between cards */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
         .formation-card {
             display: flex;
@@ -56,7 +53,7 @@
         }
         .formation-card img {
             width: 100%;
-            height: 200px; /* Fixed height to maintain aspect ratio */
+            height: 200px;
             object-fit: cover;
             transition: filter 0.3s ease;
         }
@@ -65,9 +62,9 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Center content vertically */
-            align-items: center;    /* Center content horizontally */
-            text-align: center;     /* Center text */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .formation-card .card-title {
             font-size: 1.5rem;
@@ -97,10 +94,10 @@
         .formation-card:hover {
             transform: scale(1.03);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-            filter: grayscale(0%); /* Full color on hover */
+            filter: grayscale(0%);
         }
         .formation-card:not(:hover) img {
-            filter: grayscale(100%); /* Black and white when not hovered */
+            filter: grayscale(100%);
         }
         .formation-card a {
             color: inherit;
@@ -117,9 +114,8 @@
 
         <div class="formation-container">
             @foreach($formations as $formation)
-                <a href="{{ route('contractor.video', $formation['id']) }}" class="formation-card">
-                    <img src="{{ asset($formation['image']) }}" class="card-img-top" alt="{{ $formation['title'] }}">
-
+                <a href="{{ route('formations.video', $formation['id']) }}" class="formation-card">
+                    <img src="{{ asset('images/' . $formation['image']) }}" alt="Formation Image">
                     <div class="card-body">
                         <h5 class="card-title">{{ $formation['title'] }}</h5>
                         <p class="card-text">{{ \Illuminate\Support\Str::limit($formation['description'], 150) }}</p>
@@ -131,7 +127,6 @@
             @endforeach
         </div>
     </div>
-
     <!-- Include Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
